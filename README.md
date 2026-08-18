@@ -1,2 +1,2 @@
 # Arquitetura_Computadores
-sim
+
