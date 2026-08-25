@@ -1,0 +1,14 @@
+	lw x23, i
+	lw x24, var
+loopguloso:
+	beq x23, x24, fimguloso
+	lb x10, 12(x0)
+	sb x10, 1024(x0)
+	addi x23, x23, 1
+	jal x1, loopguloso
+fimguloso:
+	halt
+str1: .string "Hello World"
+
+i: .word 0
+var: .word 11
