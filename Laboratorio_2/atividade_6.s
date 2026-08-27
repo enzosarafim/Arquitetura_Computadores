@@ -8,7 +8,7 @@ on:
 	sb x11, 1029(x0)
 	lb x10, 1026(x0)
 	beq x10, x13, off
-	jal x0, loop
+	jal x0, on
 off:
 	slli x11, x11, 1
 	sb x12, 1029(x0)
