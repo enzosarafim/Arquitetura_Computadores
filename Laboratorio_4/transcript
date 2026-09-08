@@ -1,0 +1,87 @@
+vsim -gui work.alu_64 work.multiplier_control work.multiplier_datapath work.multiplier_tb work.multiplier_top
+# vsim -gui work.alu_64 work.multiplier_control work.multiplier_datapath work.multiplier_tb work.multiplier_top 
+# Start time: 10:12:18 on Sep 08,2026
+# Loading sv_std.std
+# Loading work.alu_64
+# Loading work.multiplier_control
+# Loading work.multiplier_datapath
+# Loading work.multiplier_tb
+# Loading work.multiplier_top
+add wave -position end  sim:/alu_64/a
+add wave -position end  sim:/alu_64/b
+add wave -position end  sim:/alu_64/sum
+# Compile of multiplier_top.sv was successful.
+# Compile of multiplier_tb.sv was successful.
+# Compile of multiplier_datapath.sv was successful.
+# Compile of multiplier_control.sv was successful.
+# Compile of alu_64.sv was successful.
+# 5 compiles, 0 failed with no errors.
+run -all
+# [PASS] zero x zero: 0 x 0 = 0
+# [PASS] 1 x 1: 1 x 1 = 1
+# [PASS] 6 x 7: 6 x 7 = 42
+# [PASS] 255 x 255: 255 x 255 = 65025
+# [PASS] 1000 x 1000: 1000 x 1000 = 1000000
+# [PASS] MAX x 1: 4294967295 x 1 = 4294967295
+# [PASS] MAX x MAX: 4294967295 x 4294967295 = 18446744065119617025
+# [PASS] 0xAAAAAAAA x 0x55555555: 2863311530 x 1431655765 = 4099276458915470450
+# [PASS] 123456789 x 987654321: 123456789 x 987654321 = 121932631112635269
+# Simulacao concluida.
+# ** Note: $finish    : D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv(98)
+#    Time: 6150 ns  Iteration: 1  Instance: /multiplier_tb
+# 1
+# Break in Module multiplier_tb at D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv line 98
+run
+run
+run -all
+# [TIMEOUT] Simulacao excedeu o limite de tempo.
+# ** Note: $finish    : D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv(105)
+#    Time: 200 us  Iteration: 0  Instance: /multiplier_tb
+# 1
+# Break in Module multiplier_tb at D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv line 105
+force -freeze sim:/alu_64/a 1 0
+force -freeze sim:/alu_64/b 2 0
+# Invalid binary digit: 2.
+# ** UI-Msg: (vsim-4011) Invalid force value: 2 0.
+# 
+run -all
+force -freeze sim:/alu_64/a 11 0
+force -freeze sim:/alu_64/b 11 0
+force -freeze sim:/alu_64/sum 11 0
+# Compile of multiplier_top.sv was successful.
+# Compile of multiplier_tb.sv was successful.
+# Compile of multiplier_datapath.sv was successful.
+# Compile of multiplier_control.sv was successful.
+# Compile of alu_64.sv was successful.
+# 5 compiles, 0 failed with no errors.
+# Break key hit
+# Break in Module multiplier_tb at D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv line 36
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.alu_64
+# Loading work.multiplier_control
+# Loading work.multiplier_datapath
+# Loading work.multiplier_tb
+# Loading work.multiplier_top
+restart -f
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# [PASS] zero x zero: 0 x 0 = 0
+# [PASS] 1 x 1: 1 x 1 = 1
+# [PASS] 6 x 7: 6 x 7 = 42
+# [PASS] 255 x 255: 255 x 255 = 65025
+# [PASS] 1000 x 1000: 1000 x 1000 = 1000000
+# [PASS] MAX x 1: 4294967295 x 1 = 4294967295
+# [PASS] MAX x MAX: 4294967295 x 4294967295 = 18446744065119617025
+# [PASS] 0xAAAAAAAA x 0x55555555: 2863311530 x 1431655765 = 4099276458915470450
+# [PASS] 123456789 x 987654321: 123456789 x 987654321 = 121932631112635269
+# Simulacao concluida.
+# ** Note: $finish    : D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv(98)
+#    Time: 6150 ns  Iteration: 1  Instance: /multiplier_tb
+# 1
+# Break in Module multiplier_tb at D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv line 98
+quit -sim
+# End time: 10:20:52 on Sep 08,2026, Elapsed time: 0:08:34
+# Errors: 0, Warnings: 1

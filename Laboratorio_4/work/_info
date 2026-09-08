@@ -1,0 +1,136 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/Users/ktmc/Downloads/lab1
+valu_64
+Z0 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+Z1 !s110 1788873419
+!i10b 1
+!s100 Mz2:nBaB4_R@2hn[J9zEK2
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IQ0SMcSKOe>Zg7LJD1iAg43
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+S1
+Z4 dD:/Users/ktmc/Downloads/lab4
+w1788872893
+8D:/Users/ktmc/Downloads/lab4/alu_64.sv
+FD:/Users/ktmc/Downloads/lab4/alu_64.sv
+!i122 14
+L0 7 8
+Z5 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z6 !s108 1788873419.000000
+!s107 D:/Users/ktmc/Downloads/lab4/alu_64.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ktmc/Downloads/lab4/alu_64.sv|
+!i113 1
+Z7 o-work work -sv
+Z8 tCvgOpt 0
+vmultiplier_control
+R0
+R1
+!i10b 1
+!s100 2TZj5<2e^>9eeL:25=PZV1
+R2
+I5R<8N31MInVARkYTLV>eX1
+R3
+S1
+R4
+w1788872896
+8D:/Users/ktmc/Downloads/lab4/multiplier_control.sv
+FD:/Users/ktmc/Downloads/lab4/multiplier_control.sv
+!i122 13
+L0 23 114
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ktmc/Downloads/lab4/multiplier_control.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ktmc/Downloads/lab4/multiplier_control.sv|
+!i113 1
+R7
+R8
+vmultiplier_datapath
+R0
+R1
+!i10b 1
+!s100 lBLZ]N@LMoKJ2Go2UPNoa1
+R2
+IC[3d@gHM7ljWf6IUY;BHn2
+R3
+S1
+R4
+w1788872899
+8D:/Users/ktmc/Downloads/lab4/multiplier_datapath.sv
+FD:/Users/ktmc/Downloads/lab4/multiplier_datapath.sv
+!i122 12
+L0 17 74
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ktmc/Downloads/lab4/multiplier_datapath.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ktmc/Downloads/lab4/multiplier_datapath.sv|
+!i113 1
+R7
+R8
+vmultiplier_tb
+R0
+R1
+!i10b 1
+!s100 `J86Da5FgC<o:F7@@>f<P3
+R2
+ICl]dZU4dCZ;F;A0<=_jQT0
+R3
+S1
+R4
+w1788872902
+8D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv
+FD:/Users/ktmc/Downloads/lab4/multiplier_tb.sv
+!i122 11
+L0 6 103
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ktmc/Downloads/lab4/multiplier_tb.sv|
+!i113 1
+R7
+R8
+vmultiplier_top
+R0
+R1
+!i10b 1
+!s100 _nz4<GhVEB]bKaODNYe1d1
+R2
+IBazXe^@JPfa5Dhn[3iBnl0
+R3
+S1
+R4
+w1788872906
+8D:/Users/ktmc/Downloads/lab4/multiplier_top.sv
+FD:/Users/ktmc/Downloads/lab4/multiplier_top.sv
+!i122 10
+L0 14 50
+R5
+r1
+!s85 0
+31
+R6
+!s107 D:/Users/ktmc/Downloads/lab4/multiplier_top.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/Users/ktmc/Downloads/lab4/multiplier_top.sv|
+!i113 1
+R7
+R8
