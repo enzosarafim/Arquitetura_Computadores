@@ -6,7 +6,7 @@
 
 ## Grupo:
 * Enzo Nogueira Sarafim (ens2)
-* Gabriel
+* Gabriel ()
 * Kayque Tavares Marcelino da Costa (ktmc)
 * 
 
