@@ -5,6 +5,7 @@
 <img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/ee14930d-2b7d-4849-bb1d-84a0d4bb375b" />
 <img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/24bd9c76-54bd-4e71-a402-c9709593095c" />
 <img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/d27632ec-0541-4f32-abc7-3567100d7394" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/85bd33bc-f03d-4a2f-af8c-87a6c5b64ee6" />
 
 
 ## Grupo:
