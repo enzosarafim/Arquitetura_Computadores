@@ -1,0 +1,23 @@
+# Exemplo básico em Nasal (.nas)
+
+# Variáveis locais
+var nome = "Piloto";
+var aeronave = "C172P";
+
+print("Olá, " ~ nome ~ "! Pronto para voar no " ~ aeronave ~ "?");
+
+# Vetores (Arrays)
+var pontos_de_checagem = ["Taxi", "Decolagem", "Cruzeiro", "Pouso"];
+
+print("\nEtapas do voo:");
+foreach (var etapa; pontos_de_checagem) {
+    print("- " ~ etapa);
+}
+
+# Função simples
+var calcular_velocidade_nos = func(kmh) {
+    return kmh * 0.539957;
+};
+
+var v_kmh = 200;
+print("\nVelocidade: " ~ v_kmh ~ " km/h é igual a " ~ calcular_velocidade_nos(v_kmh) ~ " nós.");
