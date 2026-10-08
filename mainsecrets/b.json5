@@ -1,0 +1,24 @@
+{
+  // Isso é um comentário de linha única
+  nomeDoProjeto: "MeuProjetoJSON5",
+  versao: 1.0,
+
+  /*
+     Isso é um comentário de
+     múltiplas linhas
+  */
+  configuracoes: {
+    // Chaves não precisam obrigatoriamente de aspas
+    ambiente: 'desenvolvimento', // Aspas simples são permitidas
+    porta: 8080,
+    debug: true, // Trailing comma (vírgula no último item) é permitida!
+  },
+
+  // Números em formatos especiais
+  limiteHexadecimal: 0xFF,
+  taxaInfinita: Infinity,
+
+  // String multilinha usando barra invertida (\)
+  descricao: "Esta é uma descrição longa \
+que continua na próxima linha."
+}
