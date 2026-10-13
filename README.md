@@ -8,6 +8,7 @@
 <img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/85bd33bc-f03d-4a2f-af8c-87a6c5b64ee6" />
 <img width="236" height="290" alt="Gohan sem entender" src="https://github.com/user-attachments/assets/39e45eb3-c125-4afa-add9-24d4e1420d0a" />
 <img width="236" height="290" alt="Goku" src="https://github.com/user-attachments/assets/1beac881-d11f-408b-aa3e-4fcc88aaa861" />
+<img width="236" height="290" alt="piccolo aura farm" src="https://github.com/user-attachments/assets/c77eabe3-b041-4d14-ae46-5a310528c707" />
 
 
 ## Grupo:
