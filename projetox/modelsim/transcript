@@ -1,0 +1,234 @@
+# vsim -c -do "run -all; quit" pl_cpu_tb 
+# Start time: 11:56:21 on Oct 27,2026
+# Loading sv_std.std
+# Loading work.pl_cpu_tb
+# Loading work.pl_cpu
+# Loading work.pl_control
+# Loading work.pl_alu_ctrl
+# Loading work.pl_pipe_pkg
+# Loading work.pl_datapath_sv_unit
+# Loading work.pl_datapath
+# Loading work.pl_imem
+# Loading work.pl_hazard
+# Loading work.pl_regfile
+# Loading work.pl_sign_ext
+# Loading work.pl_forward
+# Loading work.pl_alu
+# Loading work.pl_dmem
+# Loading work.pl_mmio
+# Loading work.pl_uart
+# run -all
+# [WB] REG x1 = 0x00000000
+# [WB] REG x2 = 0x000000aa
+# [WB] REG x3 = 0x000000bb
+# [WB] REG x4 = 0x000000cc
+# [WB] REG x5 = 0x000000dd
+# [MEM] dmem[1] = 0x000000aa
+# [MEM] dmem[1] = 0x000000bb
+# [MEM] dmem[1] = 0x000000cc
+# [MEM] dmem[1] = 0x000000dd
+# [WB] REG x6 = 0xddccbbaa
+# [WB] REG x7 = 0xffffffaa
+# [WB] REG x8 = 0x000000aa
+# [WB] REG x9 = 0xffffffff
+# [WB] REG x10 = 0x00002000
+# [WB] REG x10 = 0x00001fff
+# [MEM] dmem[2] = 0xffffffff
+# [MEM] dmem[2] = 0x00001fff
+# [WB] REG x11 = 0x1fffffff
+# [WB] REG x12 = 0xffffffff
+# [WB] REG x13 = 0x0000ffff
+# [WB] REG x14 = 0x0000000a
+# [WB] REG x15 = 0x00000014
+# [WB] REG x16 = 0xfffffff6
+# [WB] REG x17 = 0x00000001
+# [WB] REG x18 = 0x00000001
+# [WB] REG x19 = 0x00000001
+# [WB] REG x20 = 0x00000001
+# [WB] REG x21 = 0x00000001
+# [WB] REG x22 = 0x0000009c
+# [WB] REG x23 = 0x00000001
+# [WB] REG x24 = 0x000000a4
+# [WB] REG x24 = 0x000000b4
+# [WB] REG x25 = 0x000000b0
+# [WB] REG x26 = 0x00000063
+# [WB] REG x26 = 0x00000063
+# [WB] REG x26 = 0x00000001
+# Halt detectado em PC=0x000000c8 apos 66 ciclos.
+# --- Estado final dos registradores ---
+#   x2 = 0x000000aa
+#   x3 = 0x000000bb
+#   x4 = 0x000000cc
+#   x5 = 0x000000dd
+#   x6 = 0xddccbbaa
+#   x7 = 0xffffffaa
+#   x8 = 0x000000aa
+#   x9 = 0xffffffff
+#   x10 = 0x00001fff
+#   x11 = 0x1fffffff
+#   x12 = 0xffffffff
+#   x13 = 0x0000ffff
+#   x14 = 0x0000000a
+#   x15 = 0x00000014
+#   x16 = 0xfffffff6
+#   x17 = 0x00000001
+#   x18 = 0x00000001
+#   x19 = 0x00000001
+#   x20 = 0x00000001
+#   x21 = 0x00000001
+#   x22 = 0x0000009c
+#   x23 = 0x00000001
+#   x24 = 0x000000b4
+#   x25 = 0x000000b0
+#   x26 = 0x00000001
+#   x27 = 0xxxxxxxxx
+#   x28 = 0xxxxxxxxx
+#   x29 = 0xxxxxxxxx
+#   x30 = 0xxxxxxxxx
+#   x31 = 0xxxxxxxxx
+# --- Estado final da dmem (palavras nao-zero) ---
+#   dmem[1] = 0xddccbbaa
+#   dmem[2] = 0x1fffffff
+# --- Comparacao com golden.txt ---
+# DIFF golden: REG  1 = 0x0000000a
+#   output: REG  1 = 0x00000000
+# 
+# DIFF golden: REG  2 = 0x00000014
+#   output: REG  2 = 0x000000aa
+# 
+# DIFF golden: REG  3 = 0x0000001e
+#   output: REG  3 = 0x000000bb
+# 
+# DIFF golden: REG  4 = 0x0000000a
+#   output: REG  4 = 0x000000cc
+# 
+# DIFF golden: REG  5 = 0x0000000a
+#   output: REG  5 = 0x000000dd
+# 
+# DIFF golden: REG  6 = 0x0000001e
+#   output: MEM[  1] = 0x000000aa
+# 
+# DIFF golden: MEM[  2] = 0x0000001e
+#   output: MEM[  1] = 0x000000bb
+# 
+# DIFF golden: REG  7 = 0x0000001e
+#   output: MEM[  1] = 0x000000cc
+# 
+# DIFF golden: REG  8 = 0x00000014
+#   output: MEM[  1] = 0x000000dd
+# 
+# DIFF golden: --- estado final ---
+#   output: REG  6 = 0xddccbbaa
+# 
+# DIFF golden: FINAL REG  1 = 0x0000000a
+#   output: REG  7 = 0xffffffaa
+# 
+# DIFF golden: FINAL REG  2 = 0x00000014
+#   output: REG  8 = 0x000000aa
+# 
+# DIFF golden: FINAL REG  3 = 0x0000001e
+#   output: REG  9 = 0xffffffff
+# 
+# DIFF golden: FINAL REG  4 = 0x0000000a
+#   output: REG 10 = 0x00002000
+# 
+# DIFF golden: FINAL REG  5 = 0x0000000a
+#   output: REG 10 = 0x00001fff
+# 
+# DIFF golden: FINAL REG  6 = 0x0000001e
+#   output: MEM[  2] = 0xffffffff
+# 
+# DIFF golden: FINAL REG  7 = 0x0000001e
+#   output: MEM[  2] = 0x00001fff
+# 
+# DIFF golden: FINAL REG  8 = 0x00000014
+#   output: REG 11 = 0x1fffffff
+# 
+# DIFF golden: FINAL REG  9 = 0xxxxxxxxx
+#   output: REG 12 = 0xffffffff
+# 
+# DIFF golden: FINAL REG 10 = 0xxxxxxxxx
+#   output: REG 13 = 0x0000ffff
+# 
+# DIFF golden: FINAL REG 11 = 0xxxxxxxxx
+#   output: REG 14 = 0x0000000a
+# 
+# DIFF golden: FINAL REG 12 = 0xxxxxxxxx
+#   output: REG 15 = 0x00000014
+# 
+# DIFF golden: FINAL REG 13 = 0xxxxxxxxx
+#   output: REG 16 = 0xfffffff6
+# 
+# DIFF golden: FINAL REG 14 = 0xxxxxxxxx
+#   output: REG 17 = 0x00000001
+# 
+# DIFF golden: FINAL REG 15 = 0xxxxxxxxx
+#   output: REG 18 = 0x00000001
+# 
+# DIFF golden: FINAL REG 16 = 0xxxxxxxxx
+#   output: REG 19 = 0x00000001
+# 
+# DIFF golden: FINAL REG 17 = 0xxxxxxxxx
+#   output: REG 20 = 0x00000001
+# 
+# DIFF golden: FINAL REG 18 = 0xxxxxxxxx
+#   output: REG 21 = 0x00000001
+# 
+# DIFF golden: FINAL REG 19 = 0xxxxxxxxx
+#   output: REG 22 = 0x0000009c
+# 
+# DIFF golden: FINAL REG 20 = 0xxxxxxxxx
+#   output: REG 23 = 0x00000001
+# 
+# DIFF golden: FINAL REG 21 = 0xxxxxxxxx
+#   output: REG 24 = 0x000000a4
+# 
+# DIFF golden: FINAL REG 22 = 0xxxxxxxxx
+#   output: REG 24 = 0x000000b4
+# 
+# DIFF golden: FINAL REG 23 = 0xxxxxxxxx
+#   output: REG 25 = 0x000000b0
+# 
+# DIFF golden: FINAL REG 24 = 0xxxxxxxxx
+#   output: REG 26 = 0x00000063
+# 
+# DIFF golden: FINAL REG 25 = 0xxxxxxxxx
+#   output: REG 26 = 0x00000063
+# 
+# DIFF golden: FINAL REG 26 = 0xxxxxxxxx
+#   output: REG 26 = 0x00000001
+# 
+# DIFF golden: FINAL REG 27 = 0xxxxxxxxx
+#   output: --- estado final ---
+# 
+# DIFF golden: FINAL REG 28 = 0xxxxxxxxx
+#   output: FINAL REG  2 = 0x000000aa
+# 
+# DIFF golden: FINAL REG 29 = 0xxxxxxxxx
+#   output: FINAL REG  3 = 0x000000bb
+# 
+# DIFF golden: FINAL REG 30 = 0xxxxxxxxx
+#   output: FINAL REG  4 = 0x000000cc
+# 
+# DIFF golden: FINAL REG 31 = 0xxxxxxxxx
+#   output: FINAL REG  5 = 0x000000dd
+# 
+# DIFF golden: FINAL MEM[  0] = 0x0000000a
+#   output: FINAL REG  6 = 0xddccbbaa
+# 
+# DIFF golden: FINAL MEM[  1] = 0x00000014
+#   output: FINAL REG  7 = 0xffffffaa
+# 
+# DIFF golden: FINAL MEM[  2] = 0x0000001e
+#   output: FINAL REG  8 = 0x000000aa
+# 
+# DIFF golden:   output: FINAL REG  9 = 0xffffffff
+# 
+# FAIL: 45 diferenca(s) encontrada(s).
+# ** Note: $stop    : ../src/pl_cpu_tb.sv(232)
+#    Time: 6951 ns  Iteration: 0  Instance: /pl_cpu_tb
+# Break in Module pl_cpu_tb at ../src/pl_cpu_tb.sv line 232
+# Stopped at ../src/pl_cpu_tb.sv line 232
+#  quit
+# End time: 11:56:21 on Oct 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
