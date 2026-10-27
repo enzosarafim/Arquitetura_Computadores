@@ -1,0 +1,4 @@
+Info (10281): Verilog HDL Declaration information at pl_control.sv(30): object "Branch" differs only in case from object "BRANCH" in the same scope File: D:/Users/ens2/Documents/pissmog/rv32i_pipelined_base_project/src/pl_control.sv Line: 30
+Info (10281): Verilog HDL Declaration information at pl_control.sv(32): object "Jalr" differs only in case from object "JALR" in the same scope File: D:/Users/ens2/Documents/pissmog/rv32i_pipelined_base_project/src/pl_control.sv Line: 32
+Info (10281): Verilog HDL Declaration information at pl_uart.sv(39): object "tx_data" differs only in case from object "TX_DATA" in the same scope File: D:/Users/ens2/Documents/pissmog/rv32i_pipelined_base_project/src/pl_uart.sv Line: 39
+Info (10281): Verilog HDL Declaration information at pl_uart.sv(41): object "rx_data" differs only in case from object "RX_DATA" in the same scope File: D:/Users/ens2/Documents/pissmog/rv32i_pipelined_base_project/src/pl_uart.sv Line: 41
