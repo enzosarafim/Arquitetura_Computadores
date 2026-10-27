@@ -1,0 +1,57 @@
+DEPTH = 256;            -- The size of memory in words
+WIDTH = 32;             -- The size of data in bits
+ADDRESS_RADIX = HEX;    -- The radix for address values
+DATA_RADIX = HEX;       -- The radix for data values
+CONTENT                 -- Start of (address: data pairs)
+BEGIN
+
+000 : 00000093;  -- addi x1,x0,0
+001 : 0AA00113;  -- addi x2,x0,170
+002 : 0BB00193;  -- addi x3,x0,187
+003 : 0CC00213;  -- addi x4,x0,204
+004 : 0DD00293;  -- addi x5,x0,221
+005 : 00208223;  -- sb x2,4(x1)
+006 : 003082A3;  -- sb x3,5(x1)
+007 : 00408323;  -- sb x4,6(x1)
+008 : 005083A3;  -- sb x5,7(x1)
+009 : 0040A303;  -- lw x6,4(x1)
+00A : 00408383;  -- lb x7,4(x1)
+00B : 0040C403;  -- lbu x8,4(x1)
+00C : FFF00493;  -- addi x9,x0,-1
+00D : 00002537;  -- lui x10,2
+00E : FFF50513;  -- addi x10,x10,-1
+00F : 00909423;  -- sh x9,8(x1)
+010 : 00A09523;  -- sh x10,10(x1)
+011 : 0080A583;  -- lw x11,8(x1)
+012 : 00809603;  -- lh x12,8(x1)
+013 : 0080D683;  -- lhu x13,8(x1)
+014 : 00A00713;  -- addi x14,x0,10
+015 : 01400793;  -- addi x15,x0,20
+016 : FF600813;  -- addi x16,x0,-10
+017 : 00F71463;  -- bne x14,x15,8
+018 : 06300893;  -- addi x17,x0,99
+019 : 00100893;  -- addi x17,x0,1
+01A : 00E84463;  -- blt x16,x14,8
+01B : 06300913;  -- addi x18,x0,99
+01C : 00100913;  -- addi x18,x0,1
+01D : 00E7D463;  -- bge x15,x14,8
+01E : 06300993;  -- addi x19,x0,99
+01F : 00100993;  -- addi x19,x0,1
+020 : 01076463;  -- bltu x14,x16,8
+021 : 06300A13;  -- addi x20,x0,99
+022 : 00100A13;  -- addi x20,x0,1
+023 : 00E87463;  -- bgeu x16,x14,8
+024 : 06300A93;  -- addi x21,x0,99
+025 : 00100A93;  -- addi x21,x0,1
+026 : 00800B6F;  -- jal x22,8
+027 : 06300B93;  -- addi x23,x0,99
+028 : 00100B93;  -- addi x23,x0,1
+029 : 00000C17;  -- auipc x24,0
+02A : 010C0C13;  -- addi x24,x24,16
+02B : 000C0CE7;  -- jalr x25,x24,0
+02C : 06300D13;  -- addi x26,x0,99
+02D : 06300D13;  -- addi x26,x0,99
+02E : 06300D13;  -- addi x26,x0,99
+02F : 00100D13;  -- addi x26,x0,1
+030 : 00000063;  -- beq x0,x0,0
+END;
