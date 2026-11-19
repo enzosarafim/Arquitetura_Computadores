@@ -11,3 +11,6 @@ caso base
 
 000 : 0000000A;  -- 10
 001 : 00000014;  -- 20
+
+
+--Para guardar resultados lado a lado, use --out, por exemplo --out dump_e2.txt
