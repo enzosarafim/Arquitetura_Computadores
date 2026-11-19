@@ -48,7 +48,11 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 
 `SLTIU` não consta da lista da Etapa 2, mas usa a mesma decodificação de `SLTU` e funciona sem hardware adicional.
 
-### Resumo de cobertura do ISA RV32I
+---
+
+### Cobertura do ISA RV32I
+
+---
 
 | Categoria          | Total ISA | Implementadas | Faltando |
 |--------------------|:---------:|:-------------:|:--------:|
@@ -88,7 +92,7 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 | Load-use | Stall | 1 bolha inserida em ID/EX (`pl_hazard.sv`) |
 | Desvio tomado, `JAL`, `JALR` | Flush | 2 NOPs (IF e ID) na resolução em EX (`pl_datapath.sv`) |
 
-**Resolução de desvios e jumps no estágio EX:** quando um desvio é tomado, ou em qualquer `JAL`/`JALR`, o PC vai para o alvo e os dois estágios anteriores são esvaziados. O custo é de 2 ciclos por desvio tomado ou jump.
+**Resolução de desvios e jumps no estágio EX:** Quando um desvio é tomado, ou em qualquer `JAL`/`JALR`, o PC vai para o alvo e os dois estágios anteriores são esvaziados. O custo é de 2 ciclos por desvio tomado ou jump.
 
 | Instrução | Condição (sobre `rs1` e `rs2` após forwarding) | Destino |
 |-----------|-----------------------------------------------|---------|
@@ -98,11 +102,11 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 | `JAL` | sempre; `rd` = PC + 4 | PC + imm |
 | `JALR` | sempre; `rd` = PC + 4 | (`rs1` + imm) com o bit 0 zerado |
 
-A condição vem de um comparador próprio no estágio EX, ligado aos operandos já adiantados; a ALU não participa dos desvios. Em `JALR`, a ALU soma `rs1` + imm para formar o destino, e o valor gravado em `rd` (PC + 4) substitui o resultado da ALU no registrador EX/MEM, de onde também é adiantado.
+A condição vem de um comparador próprio no estágio EX, ligado aos operandos já adiantados; a ALU não participa dos desvios.
 
-**Banco de registradores com escrita em negedge:** a escrita ocorre na borda de descida do clock, garantindo que o estágio ID leia o valor atualizado no próximo posedge sem necessidade de forwarding WB→ID explícito.
+**Banco de registradores com escrita em negedge:** A escrita ocorre na borda de descida do clock, garantindo que o estágio ID leia o valor atualizado no próximo posedge sem necessidade de forwarding WB → ID explícito.
 
-**Load-use com campos que não são registradores:** `pl_hazard` compara `inst[19:15]` e `inst[24:20]` com o `rd` de um load sem olhar o formato da instrução. Se o imediato de uma instrução I, U ou J logo após um load coincidir com esse `rd`, por exemplo `lw x5,0(x0)` seguido de `addi x6,x0,5`, ela espera 1 ciclo a mais. O resultado não muda.
+**Load-use com campos que não são registradores:** `pl_hazard` compara `inst[19:15]` e `inst[24:20]` com o `rd` de um load sem olhar o formato da instrução.
 
 ### Operandos da ALU
 
@@ -132,9 +136,9 @@ Seleção: `alu_result[10] = 1` redireciona o acesso ao controlador MMIO (`pl_mm
 
 **Leitura da UART (`lw` em 0x410):** `{22'b0, tx_busy[9], rx_ready[8], rx_data[7:0]}`
 
-**Loads e stores de byte e meia palavra:** a memória de dados é sempre lida e gravada por palavra. `LB`, `LH`, `LBU` e `LHU` escolhem o byte ou a meia palavra pelos 2 bits baixos do endereço e estendem com ou sem sinal no estágio MEM. `SB` e `SH` aproveitam a leitura assíncrona: no mesmo ciclo, leem a palavra atual, trocam só os bytes do store e gravam a palavra inteira. Os endereços precisam estar alinhados ao tamanho do acesso (meia palavra em endereço par, palavra em múltiplo de 4); acessos desalinhados não são suportados. Nos periféricos (MMIO), loads de byte e meia palavra funcionam, mas use apenas `SW` para escrever.
+**Loads e stores de byte e meia palavra:** A memória de dados é sempre lida e gravada por palavra. `LB`, `LH`, `LBU` e `LHU` escolhem o byte ou a meia palavra pelos 2 bits baixos do endereço e estendem com ou sem sinal no estágio MEM. `SB` e `SH` aproveitam a leitura assíncrona: no mesmo ciclo, leem a palavra atual, trocam só os bytes do store e gravam a palavra inteira. Os endereços precisam estar alinhados ao tamanho do acesso; acessos desalinhados não são suportados.
 
-**Escrita na UART (`sw` em 0x410):** o hardware (`pl_mmio`) divide automaticamente a palavra de 32 bits em 4 bytes e os envia em sequência little-endian (byte 0 primeiro). `tx_busy` permanece alto até o último byte ser aceito pelo shift register. O software deve aguardar `tx_busy = 0` antes de escrever nova palavra.
+**Escrita na UART (`sw` em 0x410):** O hardware (`pl_mmio`) divide automaticamente a palavra de 32 bits em 4 bytes e os envia em sequência little-endian (byte 0 primeiro). `tx_busy` permanece alto até o último byte ser aceito pelo shift register. O software deve aguardar `tx_busy = 0` antes de escrever nova palavra.
 
 ### ALU — codificação de operação
 
@@ -221,8 +225,6 @@ rv32i_pipelined_base_project/
 2. Compile todos os arquivos em `src/` — compilar `pl_pipe_pkg.sv` primeiro.
 3. Inicie a simulação com o top `pl_cpu_tb`.
 4. Execute `run -all`.
-
-O testbench detecta o halt automaticamente (repetição periódica do PC causada pelo `beq x0, x0, 0`), imprime o estado final dos registradores e da memória, e compara a saída com `modelsim/golden.txt`.
 
 **Programa de teste padrão (`modelsim/program.hex`):**
 
@@ -399,7 +401,7 @@ Uma instrução por linha, com um único espaço após o nome e nenhum espaço d
 
 ### Banco de registradores — escrita em negedge
 
-A escrita no banco de registradores ocorre na **borda de descida** do clock (`negedge clk`). Isso resolve o conflito de leitura/escrita simultânea que ocorre quando, após um load-use stall, o estágio WB escreve um registrador no mesmo ciclo em que o estágio ID o lê para captura no registrador ID/EX. Com a escrita em negedge, o valor é garantidamente visível antes do próximo posedge. Esta é a solução descrita na Fig. 4.63 do P&H.
+A escrita no banco de registradores ocorre na **borda de descida** do clock (`negedge clk`). Isso resolve o conflito de leitura/escrita simultânea que ocorre quando, após um load-use stall, o estágio WB escreve um registrador no mesmo ciclo em que o estágio ID o lê para captura no registrador ID/EX. Com a escrita em negedge, o valor é garantidamente visível antes do próximo posedge.
 
 O banco usa `(* ramstyle = "logic" *)` para ser sintetizado em registradores. Sem isso, o Quartus o coloca em blocos M9K, cuja leitura é registrada na borda de subida e não enxerga a escrita feita na borda de descida, e o hardware passa a divergir da simulação.
 
