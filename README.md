@@ -64,8 +64,6 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 | 36 | `JALR`    | I    | 1100111 | Etapa 3 |
 | 37 | `SLTIU`   | I    | 0010011 | Extra   |
 
-`SLTIU` não consta da lista da Etapa 2, mas usa a mesma decodificação de `SLTU` e funciona sem hardware adicional.
-
 ---
 
 ### Cobertura do ISA RV32I
