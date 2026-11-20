@@ -62,7 +62,6 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 | 34 | `BGEU`    | B    | 1100011 | Etapa 3 |
 | 35 | `JAL`     | J    | 1101111 | Etapa 3 |
 | 36 | `JALR`    | I    | 1100111 | Etapa 3 |
-| 37 | `SLTIU`   | I    | 0010011 | Extra   |
 
 ---
 
