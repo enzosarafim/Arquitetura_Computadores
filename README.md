@@ -236,34 +236,6 @@ rv32i_pipelined_base_project/
 
 ---
 
-## Como simular (ModelSim)
-
-1. Abra o ModelSim e carregue o projeto `modelsim/rv32i_pipelined_base_project.mpf`.
-2. Compile todos os arquivos em `src/` — compilar `pl_pipe_pkg.sv` primeiro.
-3. Inicie a simulação com o top `pl_cpu_tb`.
-4. Execute `run -all`.
-
-**Programa de teste padrão (`modelsim/program.hex`):**
-
-```
-000: lw  x1,  0(x0)   x1 = 10
-001: lw  x2,  4(x0)   x2 = 20
-002: add x3, x1, x2   x3 = 30   -- forwarding MEM/WB→EX
-003: and x4, x3, x1   x4 = 10   -- forwarding EX/MEM→EX
-004: lw  x5,  0(x0)   x5 = 10   -- causa load-use stall
-005: add x6, x5, x2   x6 = 30   -- executado após 1 ciclo de stall
-006: sw  x3,  8(x0)   dmem[2] = 30
-007: beq x1, x2, +8   NÃO tomado (10 ≠ 20)
-008: add x7, x1, x2   x7 = 30
-009: beq x1, x5, +8   TOMADO (10 = 10) → flush de 00A
-00A: add x8, x0, x0   DESCARTADO
-00B: add x8, x1, x4   x8 = 20
-00C: beq x0, x0,  0   halt
-```
-
-Estado final esperado: `x1=10  x2=20  x3=30  x4=10  x5=10  x6=30  x7=30  x8=20  dmem[2]=30`
-
----
 
 ## Como sintetizar (Quartus)
 
