@@ -1,36 +1,6 @@
-// =============================================================================
-// pl_control.sv
-// Unidade de Controle Principal -- RV32I pipelined (P&H secao 4.4)
-//
+// Unidade de Controle Principal
 // Decodifica o opcode de 7 bits (estagio ID) e gera os sinais de controle
 // que serao propagados pelos registradores de pipeline.
-//
-// Instrucoes suportadas:
-//   R-type  (0110011): add, sub, sll, slt, sltu, xor, srl, sra, or, and
-//   I-type  (0010011): addi, slti, sltiu, xori, ori, andi, slli, srli, srai
-//   I-type  (0000011): lb, lh, lw, lbu, lhu   (largura pelo funct3, no estagio MEM)
-//   S-type  (0100011): sb, sh, sw             (largura pelo funct3, no estagio MEM)
-//   B-type  (1100011): beq, bne, blt, bge, bltu, bgeu (condicao pelo funct3, no EX)
-//   U-type  (0110111): lui
-//   U-type  (0010111): auipc
-//   J-type  (1101111): jal
-//   I-type  (1100111): jalr
-//
-// Tabela de sinais de controle:
-//   Sinal     | R-type | I-arit | load | store | branch | lui | auipc | jal | jalr
-//   ----------|--------|--------|------|-------|--------|-----|-------|-----|-----
-//   ALUSrc    |   0    |   1    |  1   |   1   |   0    |  1  |  1    |  -  |  1    0=reg, 1=imm
-//   ALUSrcA   |   00   |   00   |  00  |   00  |   00   | 10  |  01   |  -  |  00   00=rs1, 01=PC, 10=zero
-//   MemtoReg  |   0    |   0    |  1   |   -   |   -    |  0  |  0    |  0  |  0    0=ALU, 1=mem
-//   RegWrite  |   1    |   1    |  1   |   0   |   0    |  1  |  1    |  1  |  1
-//   MemRead   |   0    |   0    |  1   |   0   |   0    |  0  |  0    |  0  |  0
-//   MemWrite  |   0    |   0    |  0   |   1   |   0    |  0  |  0    |  0  |  0
-//   Branch    |   0    |   0    |  0   |   0   |   1    |  0  |  0    |  0  |  0
-//   Jump      |   0    |   0    |  0   |   0   |   0    |  0  |  0    |  1  |  1    rd = PC+4, desvio sempre
-//   JumpReg   |   0    |   0    |  0   |   0   |   0    |  0  |  0    |  0  |  1    destino = (rs1+imm) & ~1
-//   ALUOp[1]  |   1    |   1    |  0   |   0   |   0    |  0  |  0    |  0  |  0
-//   ALUOp[0]  |   0    |   1    |  0   |   0   |   1    |  0  |  0    |  0  |  0
-// =============================================================================
 
 `timescale 1ns / 1ps
 
