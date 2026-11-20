@@ -253,12 +253,6 @@ Para trocar de programa, copie o par de `.mif` desejado para `quartus/` com os n
 
 ## LEDs, chaves e botões na placa
 
-O hardware só define **onde** cada periférico fica no mapa de memória. Quem decide o que um LED mostra é o programa carregado: sem um `sw` para `0x408` ou `0x40C`, os LEDs ficam apagados mesmo com a CPU funcionando. Da mesma forma, as chaves não têm efeito se o programa não usar o valor lido de `0x400`.
-
-Níveis lógicos: chave para cima = 1; botão solto = 1 e pressionado = 0; LED aceso = 1.
-
-### O que é fixo no hardware
-
 | Componente | Função | Endereço |
 |------------|--------|----------|
 | KEY\[0\] | **Reset**: enquanto pressionado, apaga os LEDs e para a CPU; ao soltar, o programa recomeça do início | também legível em `0x404` |
@@ -267,7 +261,6 @@ Níveis lógicos: chave para cima = 1; botão solto = 1 e pressionado = 0; LED a
 | LEDR\[17:0\] | Saída livre para o programa | `0x408` |
 | LEDG\[8:0\] | Saída livre para o programa | `0x40C` |
 
-O reset não restaura a memória de dados nem os registradores: para voltar ao conteúdo original do `.mif`, grave o bitstream de novo.
 
 ### O que cada programa mostra
 
