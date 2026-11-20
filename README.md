@@ -301,23 +301,6 @@ Anexa automaticamente o código de dump serial ao programa do usuário, sem que 
 | `instruction.mif` | Código do usuário + `beq` de desvio + dump serial a partir de `0x080` |
 | `data.mif` | Zeros + constantes de infraestrutura do dump em `0x080–0x086` |
 
-**Layout da memória de instruções com `--dump`:**
-
-```
-0x000..N-1  Código do usuário (máx. 127 instruções)
-0xN         beq x0,x0,→0x80   (desvio incondicional para o dump)
-0xN+1..07F  NOP (addi x0,x0,0)
-0x080..0x0AD  Dump serial — Parts 2–8 (46 instruções)
-```
-
-**Layout da memória de dados com `--dump`:**
-
-```
-0x000..0x01F  Área do usuário  (byte 0x000–0x07C) — transmitida no dump
-0x078..0x07F  Saves de x1–x8  (byte 0x1E0–0x1FC) — escritos em runtime
-0x080..0x086  Constantes de infraestrutura         — inicializadas no MIF
-```
-
 **O que o dump transmite via UART (164 bytes = 41 palavras):**
 
 ```
@@ -347,16 +330,6 @@ auipc x7,1
 jal x1,+16
 jalr x0,x1,0
 ```
-
-Uma instrução por linha, com um único espaço após o nome e nenhum espaço depois das vírgulas, sem rótulos e sem comentários. O argumento de arquivo é opcional — o padrão é `instructions.txt`.
-
-| Campo | Faixa aceita |
-|-------|--------------|
-| Imediato I e S | -2048 a 2047, em decimal |
-| Deslocamento de desvio (B) | -2048 a 2046, par, em decimal (`+8` também é aceito) |
-| Deslocamento de `JAL` | -524288 a 524286, par, em decimal |
-| Deslocamento (`SLLI`, `SRLI`, `SRAI`) | 0 a 31, em decimal |
-| Imediato U (`LUI`, `AUIPC`) | -524288 a 1048575, em decimal ou `0x...` |
 
 ---
 
@@ -403,8 +376,6 @@ python3 serial_dump.py COM3                    # captura o resultado
 
 ## Teste das etapas 1 e 2 (`hello_e1.asm`)
 
-`assembler/hello_e1.asm` monta as próprias constantes com `addi` e grava cada resultado na memória de dados. Por isso, o `data.mif` gerado não precisa de nenhuma edição manual.
-
 ```bash
 cd assembler
 python assembler.py --dump hello_e1.asm
@@ -413,7 +384,7 @@ cp data.mif ../quartus/
 # compile e grave na FPGA pelo Quartus
 cd ..
 python dump/serial_dump.py COM3 --timeout 60   # troque COM3 pela porta do seu adaptador serial
-# com o script aguardando, aperte e solte KEY[0]
+
 ```
 
 Quando o dump termina, todos os LEDs verdes acendem. O relatório mostra a memória por endereço em bytes, e `dmem[N]` fica no endereço `N × 4`:
@@ -433,13 +404,11 @@ Quando o dump termina, todos os LEDs verdes acendem. O relatório mostra a memó
 | 10 | `0x028` | `sra x4,x12,x11`  | `0xFFFFFFFE` | -2 |
 | 11 | `0x02C` | `sltu x5,x10,x12` | `0x00000001` | 1 |
 
-O restante da área `0x030–0x07C` fica em zero. O relatório também deve mostrar `cycles = 50` e, nos registradores, `x1=0x0000000C`, `x2=0x00000050`, `x3=0x1FFFFFFE`, `x4=0xFFFFFFFE`, `x5=0x00000001`, `x6=0x0FFFFFFF`, `x7=0xFFFFFFFC` e `x8=0x00000000`.
 
 ---
 
 ## Teste da etapa 3 (`hello_e2.asm`)
 
-`assembler/hello_e2.asm` grava `-107` com `sb` e `sh`, lê de volta com os quatro loads novos e testa cada desvio e jump. Cada desvio pula um `addi` que zeraria a flag correspondente, então `1` significa que o desvio foi tomado como esperado. O fluxo é o mesmo da etapa anterior, trocando o nome do arquivo:
 
 ```bash
 cd assembler
@@ -449,7 +418,6 @@ cp data.mif ../quartus/
 # compile e grave na FPGA pelo Quartus
 cd ..
 python dump/serial_dump.py COM3 --timeout 60   # troque COM3 pela porta do seu adaptador serial
-# com o script aguardando, aperte e solte KEY[0]
 ```
 
 O arquivo termina com `beq x0,x0,0`. No modo `--dump`, o assembler troca essa linha pelo desvio para o dump e mostra um aviso.
@@ -470,7 +438,6 @@ O arquivo termina com `beq x0,x0,0`. No modo `--dump`, o assembler troca essa li
 | 11 | `0x02C` | `jal x16,+8` (`x16` = 108) | `0x00000001` | 1 |
 | 12 | `0x030` | `jalr x18,x16,20` (`x18` = 124) | `0x00000001` | 1 |
 
-O restante da área `0x034–0x07C` fica em zero. O relatório também deve mostrar `cycles = 76` e, nos registradores, `x1=0xFFFFFF95`, `x2=0x00000032`, `x3=0xFFFFFF95`, `x4=0x00000095`, `x5=0xFFFFFF95`, `x6=0x0000FF95`, `x7=0x00003000` e `x8=0x00000024`.
 
 ---
 
