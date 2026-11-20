@@ -1,30 +1,4 @@
-// =============================================================================
-// pl_datapath.sv
-// Datapath pipeline de 5 estagios -- RV32I (P&H secoes 4.6-4.10)
-//
-// Estagios:
-//   IF  -- busca instrucao (pl_imem, PC)
-//   ID  -- decodificacao, leitura de registradores, deteccao de hazard
-//   EX  -- execucao (ALU), resolucao de desvios e jumps, forwarding
-//   MEM -- acesso a memoria de dados / MMIO, ajuste de byte/meia palavra
-//   WB  -- escrita no banco de registradores
-//
-// Tratamento de hazards:
-//   Load-use stall : 1 ciclo de bolha (pl_hazard)
-//   RAW data       : forwarding EX/MEM -> EX e MEM/WB -> EX (pl_forward)
-//   Desvio tomado, JAL e JALR : flush de IF e ID (2 NOPs) na resolucao em EX
-//
-// Loads e stores menores que uma palavra (estagio MEM):
-//   A dmem e acessada sempre por palavra. LB/LH/LBU/LHU selecionam o byte ou a
-//   meia palavra por alu_result[1:0] e estendem o sinal. SB/SH leem a palavra
-//   atual (leitura assincrona), trocam so os bytes do store e gravam a palavra
-//   inteira no mesmo ciclo. Enderecos devem ser alinhados ao tamanho do acesso.
-//
-// Decodificacao de endereco (estagio MEM):
-//   alu_result[10] = 0 -> memoria de dados  (0x000-0x3FF)
-//   alu_result[10] = 1 -> MMIO              (0x400-0x7FF)
-//     alu_result[4:2] seleciona periferico dentro da janela MMIO
-// =============================================================================
+// Datapath pipeline de 5 estagios
 
 `timescale 1ns / 1ps
 
@@ -76,9 +50,7 @@ module pl_datapath #(
     output logic [31:0] mem_wr_data     // palavra resultante na dmem (MEM)
 );
 
-    // =========================================================================
     // Sinais internos
-    // =========================================================================
 
     // PC
     logic [31:0] pc_reg, pc_plus4;
@@ -113,9 +85,7 @@ module pl_datapath #(
     logic [31:0] store_lanes, store_bits, store_word;
     logic [31:0] load_shifted, load_data;
 
-    // =========================================================================
     // IF -- Busca de instrucao
-    // =========================================================================
     logic [31:0] instr_if;
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -133,9 +103,7 @@ module pl_datapath #(
         .instr (instr_if)
     );
 
-    // =========================================================================
     // Registrador IF/ID
-    // =========================================================================
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin                    // reset assicrono (unico sinal na lista)
             if_id.pc    <= 32'b0;
@@ -150,9 +118,7 @@ module pl_datapath #(
         // else stall: mantido
     end
 
-    // =========================================================================
     // ID -- Decodificacao, banco de registradores, imediato, hazard
-    // =========================================================================
     assign Opcode = if_id.instr[6:0];
 
     // Deteccao de hazard load-use
@@ -188,9 +154,7 @@ module pl_datapath #(
     assign wb_reg_dst   = mem_wb.rd;
     assign wb_reg_data  = wb_data;
 
-    // =========================================================================
     // Registrador ID/EX
-    // =========================================================================
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin                      // reset assicrono (unico sinal na lista)
             id_ex.alu_src    <= 1'b0;
@@ -260,9 +224,7 @@ module pl_datapath #(
     assign Funct7_EX = id_ex.funct7;
     assign ALUOp_EX  = id_ex.alu_op;
 
-    // =========================================================================
     // EX -- Forwarding, ALU, resolucao de branch
-    // =========================================================================
     pl_forward forward (
         .id_ex_rs1        (id_ex.rs1),
         .id_ex_rs2        (id_ex.rs2),
@@ -340,9 +302,7 @@ module pl_datapath #(
     // JAL/JALR escrevem o endereco de retorno (PC + 4) no lugar do resultado da ALU
     assign ex_result = id_ex.jump ? id_ex.pc + 32'd4 : alu_result;
 
-    // =========================================================================
     // Registrador EX/MEM
-    // =========================================================================
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             ex_mem.mem_to_reg  <= 1'b0;
@@ -365,9 +325,7 @@ module pl_datapath #(
         end
     end
 
-    // =========================================================================
     // MEM -- Memoria de dados + MMIO
-    // =========================================================================
     assign mmio_sel = ex_mem.alu_result[10];
 
     // Stores: bytes alterados pelo SB/SH/SW (funct3) e dado replicado nas faixas.
@@ -439,9 +397,7 @@ module pl_datapath #(
     assign mem_wr_addr = ex_mem.alu_result[9:2];
     assign mem_wr_data = store_word;
 
-    // =========================================================================
     // Registrador MEM/WB
-    // =========================================================================
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             mem_wb.mem_to_reg <= 1'b0;
