@@ -24,45 +24,45 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 
 ## Instruções suportadas
 
-| #  | Instrução | Tipo | Opcode  | Origem  | Status |
-|----|-----------|------|---------|---------|:------:|
-| 1  | `ADD`     | R    | 0110011 | Base    | ✅ |
-| 2  | `SUB`     | R    | 0110011 | Base    | ✅ |
-| 3  | `OR`      | R    | 0110011 | Base    | ✅ |
-| 4  | `AND`     | R    | 0110011 | Base    | ✅ |
-| 5  | `SLT`     | R    | 0110011 | Base    | ✅ |
-| 6  | `LW`      | I    | 0000011 | Base    | ✅ |
-| 7  | `SW`      | S    | 0100011 | Base    | ✅ |
-| 8  | `BEQ`     | B    | 1100011 | Base    | ✅ |
-| 9  | `XOR`     | R    | 0110011 | Etapa 1 | ✅ |
-| 10 | `SLL`     | R    | 0110011 | Etapa 1 | ✅ |
-| 11 | `SRL`     | R    | 0110011 | Etapa 1 | ✅ |
-| 12 | `SRA`     | R    | 0110011 | Etapa 1 | ✅ |
-| 13 | `SLTU`    | R    | 0110011 | Etapa 1 | ✅ |
-| 14 | `ADDI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 15 | `ANDI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 16 | `ORI`     | I    | 0010011 | Etapa 2 | ✅ |
-| 17 | `SLTI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 18 | `SLLI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 19 | `SRLI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 20 | `SRAI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 21 | `XORI`    | I    | 0010011 | Etapa 2 | ✅ |
-| 22 | `LUI`     | U    | 0110111 | Etapa 2 | ✅ |
-| 23 | `AUIPC`   | U    | 0010111 | Etapa 2 | ✅ |
-| 24 | `LB`      | I    | 0000011 | Etapa 3 | ✅ |
-| 25 | `LH`      | I    | 0000011 | Etapa 3 | ✅ |
-| 26 | `LBU`     | I    | 0000011 | Etapa 3 | ✅ |
-| 27 | `LHU`     | I    | 0000011 | Etapa 3 | ✅ |
-| 28 | `SB`      | S    | 0100011 | Etapa 3 | ✅ |
-| 29 | `SH`      | S    | 0100011 | Etapa 3 | ✅ |
-| 30 | `BNE`     | B    | 1100011 | Etapa 3 | ✅ |
-| 31 | `BLT`     | B    | 1100011 | Etapa 3 | ✅ |
-| 32 | `BGE`     | B    | 1100011 | Etapa 3 | ✅ |
-| 33 | `BLTU`    | B    | 1100011 | Etapa 3 | ✅ |
-| 34 | `BGEU`    | B    | 1100011 | Etapa 3 | ✅ |
-| 35 | `JAL`     | J    | 1101111 | Etapa 3 | ✅ |
-| 36 | `JALR`    | I    | 1100111 | Etapa 3 | ✅ |
-| 37 | `SLTIU`   | I    | 0010011 | Extra   | ✅ |
+| #  | Instrução | Tipo | Opcode  | Origem  |
+|----|-----------|------|---------|---------|
+| 1  | `ADD`     | R    | 0110011 | Base    | 
+| 2  | `SUB`     | R    | 0110011 | Base    |
+| 3  | `OR`      | R    | 0110011 | Base    | 
+| 4  | `AND`     | R    | 0110011 | Base    |
+| 5  | `SLT`     | R    | 0110011 | Base    |
+| 6  | `LW`      | I    | 0000011 | Base    |
+| 7  | `SW`      | S    | 0100011 | Base    |
+| 8  | `BEQ`     | B    | 1100011 | Base    |
+| 9  | `XOR`     | R    | 0110011 | Etapa 1 |
+| 10 | `SLL`     | R    | 0110011 | Etapa 1 |
+| 11 | `SRL`     | R    | 0110011 | Etapa 1 |
+| 12 | `SRA`     | R    | 0110011 | Etapa 1 |
+| 13 | `SLTU`    | R    | 0110011 | Etapa 1 |
+| 14 | `ADDI`    | I    | 0010011 | Etapa 2 |
+| 15 | `ANDI`    | I    | 0010011 | Etapa 2 |
+| 16 | `ORI`     | I    | 0010011 | Etapa 2 |
+| 17 | `SLTI`    | I    | 0010011 | Etapa 2 |
+| 18 | `SLLI`    | I    | 0010011 | Etapa 2 |
+| 19 | `SRLI`    | I    | 0010011 | Etapa 2 |
+| 20 | `SRAI`    | I    | 0010011 | Etapa 2 |
+| 21 | `XORI`    | I    | 0010011 | Etapa 2 |
+| 22 | `LUI`     | U    | 0110111 | Etapa 2 |
+| 23 | `AUIPC`   | U    | 0010111 | Etapa 2 |
+| 24 | `LB`      | I    | 0000011 | Etapa 3 |
+| 25 | `LH`      | I    | 0000011 | Etapa 3 |
+| 26 | `LBU`     | I    | 0000011 | Etapa 3 |
+| 27 | `LHU`     | I    | 0000011 | Etapa 3 |
+| 28 | `SB`      | S    | 0100011 | Etapa 3 |
+| 29 | `SH`      | S    | 0100011 | Etapa 3 |
+| 30 | `BNE`     | B    | 1100011 | Etapa 3 |
+| 31 | `BLT`     | B    | 1100011 | Etapa 3 |
+| 32 | `BGE`     | B    | 1100011 | Etapa 3 |
+| 33 | `BLTU`    | B    | 1100011 | Etapa 3 |
+| 34 | `BGEU`    | B    | 1100011 | Etapa 3 |
+| 35 | `JAL`     | J    | 1101111 | Etapa 3 |
+| 36 | `JALR`    | I    | 1100111 | Etapa 3 |
+| 37 | `SLTIU`   | I    | 0010011 | Extra   |
 
 `SLTIU` não consta da lista da Etapa 2, mas usa a mesma decodificação de `SLTU` e funciona sem hardware adicional.
 
