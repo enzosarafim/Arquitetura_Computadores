@@ -72,18 +72,17 @@ Processador RISC-V de 32 bits com pipeline de 5 estágios implementado em System
 
 ---
 
-| Categoria          | Total ISA | Implementadas | Faltando |
-|--------------------|:---------:|:-------------:|:--------:|
-| R-type             | 10        | 10            | 0        |
-| I-type aritmético  | 9         | 9             | 0        |
-| I-type load        | 5         | 5             | 0        |
-| S-type             | 3         | 3             | 0        |
-| B-type             | 6         | 6             | 0        |
-| U-type             | 2         | 2             | 0        |
-| J-type (`JAL`, `JALR`) | 2     | 2             | 0        |
-| **Total**          | **37**    | **37**        | **0**    |
+| Categoria          | Total ISA |
+|--------------------|:---------:|
+| R-type             | 10        |
+| I-type aritmético  | 9         |
+| I-type load        | 5         |
+| S-type             | 3         |
+| B-type             | 6         |
+| U-type             | 2         |
+| J-type (`JAL`, `JALR`) | 2     |
+| **Total**          | **37**    |
 
-`FENCE`, `ECALL` e `EBREAK` não entram nessa contagem e não são implementados.
 
 ---
 
