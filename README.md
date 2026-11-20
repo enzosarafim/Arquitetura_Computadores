@@ -262,23 +262,6 @@ Para trocar de programa, copie o par de `.mif` desejado para `quartus/` com os n
 | LEDG\[8:0\] | Saída livre para o programa | `0x40C` |
 
 
-### O que cada programa mostra
-
-| Programa (`mifs/`) | LEDR | LEDG | SW | KEY\[3:1\] | Serial |
-|--------------------|------|------|----|------------|--------|
-| `board_test_*` (padrão) | Acompanham SW\[17:0\] | \[8\] pisca (≈0,84 s aceso e ≈0,84 s apagado); \[3:1\] acendem com KEY\[3:1\] pressionado; \[7:4\] e \[0\] apagados | Controlam o LEDR de mesmo número | Controlam o LEDG de mesmo número | Não usa |
-| `instruction_halt_serial` + `data_halt_serial` | Apagados | Alternam entre `0x55` e `0xAA` a cada ≈1 s; \[8\] apagado | Sem efeito | Sem efeito | Envia `HALT!` uma vez |
-| `mmio_test_*` | Padrão fixo `0x2AAAA` (números ímpares acesos) | Padrão fixo `0x155` (números pares acesos) | Lidas uma vez após o reset, sem efeito visível | Lidos uma vez após o reset, sem efeito visível | Espera um espaço e responde `Ola, Mundo!` |
-| Gerado com `assembler.py --dump` | Apagados | Todos acesos = dump serial concluído | Sem efeito | Sem efeito | Envia o dump |
-
-A serial envia sempre 4 bytes por `sw`: em `HALT!` e `Ola, Mundo!`, cada caractere vem seguido de três bytes `0x00`.
-
-### Como interpretar o teste da placa
-
-- **LEDG\[8\] piscando:** clock, PLL e CPU estão executando o programa.
-- **Tudo apagado:** verifique se o bitstream foi gravado e se KEY\[0\] não está pressionado. Com a compilação correta, o LEDG\[8\] nunca fica parado.
-- **LEDR acompanhando as chaves:** leitura de `0x400` e escrita em `0x408` funcionando.
-
 ---
 
 ## Assembler
