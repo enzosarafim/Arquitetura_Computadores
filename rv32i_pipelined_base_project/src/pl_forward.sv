@@ -1,15 +1,10 @@
-// =============================================================================
-// pl_forward.sv
 // Unidade de Forwarding (adiantamento de dados) -- RV32I pipelined
-//
 // Resolve hazards RAW (Read After Write) por adiantamento:
 //   2'b10 -> adiantar de EX/MEM (resultado da ALU do ciclo anterior)
 //   2'b01 -> adiantar de MEM/WB (resultado da ALU ou da memoria)
 //   2'b00 -> sem adiantamento (usar saida do banco de registradores)
-//
 // Prioridade: EX/MEM tem precedencia sobre MEM/WB para o mesmo registrador.
 // x0 nunca e adiantado (hardwired a zero).
-// =============================================================================
 
 `timescale 1ns / 1ps
 
