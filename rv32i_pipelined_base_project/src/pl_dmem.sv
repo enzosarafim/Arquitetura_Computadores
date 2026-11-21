@@ -1,15 +1,11 @@
-// =============================================================================
-// pl_dmem.sv
 // Memoria de dados -- RV32I pipelined
 //
 // Capacidade : 256 palavras x 32 bits = 1 KB
 // Init file  : data.mif   (sintese Quartus)
 //              data.hex   (simulacao ModelSim via $readmemh)
-//
 // Leitura  : assincrona (combinatorial) -- disponivel no estagio MEM
 // Escrita  : sincrona (posedge clk, gated por MemWrite & ~mmio_sel)
 // Endereco : alu_result[9:2]  (endereco de palavra de 8 bits)
-// =============================================================================
 
 `timescale 1ns / 1ps
 
