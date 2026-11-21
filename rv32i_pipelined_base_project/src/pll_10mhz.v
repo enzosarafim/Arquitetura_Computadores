@@ -1,15 +1,4 @@
-// =============================================================================
-// pll_10mhz.v
 // ALTPLL wrapper — 50 MHz → 10 MHz for Cyclone IV E (DE2-115)
-//
-// Equivalent to what the Quartus IP Catalog wizard generates for:
-//   Input  : inclk0 = 50 MHz  (period = 20 000 ps)
-//   Output : c0     = 10 MHz  (divide_by=5, multiply_by=1)
-//   locked : asserts when PLL has acquired lock (~1 ms after power-on)
-//
-// Use locked to gate the CPU reset so the design only starts running
-// after the output clock is stable.
-// =============================================================================
 
 module pll_10mhz (
     input  wire inclk0,   // 50 MHz board clock (CLOCK_50)
@@ -23,7 +12,7 @@ module pll_10mhz (
     assign c0 = sub_wire0[0];
 
     altpll altpll_component (
-        // ---- inputs --------------------------------------------------------
+        // inputs
         .inclk          ({sub_wire1, inclk0}),  // [1]=unused, [0]=50 MHz
         .areset         (1'b0),
         .clkena         ({6{1'b1}}),
@@ -42,10 +31,10 @@ module pll_10mhz (
         .scandata       (1'b0),
         .scanread       (1'b0),
         .scanwrite      (1'b0),
-        // ---- outputs -------------------------------------------------------
+        // outputs
         .clk            (sub_wire0),
         .locked         (locked),
-        // ---- unused outputs (left open) ------------------------------------
+        // unused outputs (left open)
         .activeclock    (),
         .clkbad         (),
         .clkloss        (),
@@ -64,7 +53,7 @@ module pll_10mhz (
     );
 
     defparam
-        // ---- device / family -----------------------------------------------
+        // device / family
         altpll_component.intended_device_family  = "Cyclone IV E",
         altpll_component.lpm_type                = "altpll",
         altpll_component.lpm_hint                = "CBX_MODULE_PREFIX=pll_10mhz",
@@ -73,15 +62,15 @@ module pll_10mhz (
         altpll_component.bandwidth_type          = "AUTO",
         altpll_component.self_reset_on_loss_lock = "OFF",
         altpll_component.width_clock             = 5,
-        // ---- input clock ---------------------------------------------------
+        // input clock
         altpll_component.inclk0_input_frequency  = 20000,   // 20 000 ps = 50 MHz
         altpll_component.compensate_clock        = "CLK0",
-        // ---- output c0 : 10 MHz (÷5) ---------------------------------------
+        // output c0 : 10 MHz (÷5)
         altpll_component.clk0_divide_by          = 5,
         altpll_component.clk0_multiply_by        = 1,
         altpll_component.clk0_duty_cycle         = 50,
         altpll_component.clk0_phase_shift        = "0",
-        // ---- port declarations ---------------------------------------------
+        // port declarations
         altpll_component.port_inclk0             = "PORT_USED",
         altpll_component.port_inclk1             = "PORT_UNUSED",
         altpll_component.port_locked             = "PORT_USED",
