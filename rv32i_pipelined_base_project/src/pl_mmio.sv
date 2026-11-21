@@ -1,24 +1,4 @@
-// =============================================================================
-// pl_mmio.sv
 // Controlador de E/S Mapeada em Memoria -- DE2-115 (RV32I pipelined)
-//
-// Mapa de enderecos (byte address, word-aligned):
-//   0x400  SW    [17:0]  read-only    18 chaves deslizantes
-//   0x404  KEY   [3:0]   read-only     4 botoes push
-//   0x408  LEDR  [17:0]  write-only   18 LEDs vermelhos
-//   0x40C  LEDG  [8:0]   write-only    9 LEDs verdes
-//   0x410  UART  [31:0]  read/write    porta serial RS-232
-//            LW  -> {22'b0, tx_busy, rx_ready, rx_data[7:0]}
-//            SW  -> envia WriteData[31:0] como 4 bytes little-endian
-//                   (byte 0 primeiro, byte 3 por ultimo; tx_busy permanece
-//                    alto ate o ultimo byte ser aceito pela UART)
-//   0x414  CYCLE [31:0]  read-only    contador de ciclos de clock (32 bits)
-//
-// Selecao: alu_result[10] = 1 seleciona este modulo (enderecos 0x400-0x7FF).
-// O periferico e selecionado por alu_result[4:2] dentro da janela MMIO.
-//
-// Leituras: combinatoriais; escritas em LED e UART: registradas em posedge clk.
-// =============================================================================
 
 `timescale 1ns / 1ps
 
@@ -44,9 +24,7 @@ module pl_mmio #(
     output logic [31:0] ReadData
 );
 
-    // -------------------------------------------------------------------------
     // Instancia da UART
-    // -------------------------------------------------------------------------
     logic       tx_write;
     logic       tx_busy;
     logic [7:0] rx_data;
@@ -68,14 +46,12 @@ module pl_mmio #(
         .RXD      (UART_RXD)
     );
 
-    // -------------------------------------------------------------------------
     // Sequenciador de transmissao de 4 bytes (little-endian)
-    //
     // Quando o CPU executa SW para 0x410, os 4 bytes da palavra sao enviados
     // sequencialmente: byte[7:0] primeiro, byte[31:24] por ultimo.
     // tx_word_busy permanece alto enquanto houver bytes pendentes.
     // O CPU deve aguardar tx_busy == 0 (bit 9 de LW 0x410) antes de nova SW.
-    // -------------------------------------------------------------------------
+
     logic [31:0] tx_word;       // palavra de 32 bits em transmissao
     logic [1:0]  tx_byte_idx;   // indice do byte atual (0=LSB, 3=MSB)
     logic        tx_word_busy;  // alto enquanto houver bytes a enviar
@@ -111,9 +87,7 @@ module pl_mmio #(
         end
     end
 
-    // -------------------------------------------------------------------------
     // Contador de ciclos de clock (32 bits, read-only em 0x414)
-    // -------------------------------------------------------------------------
     logic [31:0] cycle_count;
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -121,9 +95,7 @@ module pl_mmio #(
         else        cycle_count <= cycle_count + 32'd1;
     end
 
-    // -------------------------------------------------------------------------
     // Flag rx_ready (sticky): set em rx_valid, clear em LW do endereco UART
-    // -------------------------------------------------------------------------
     logic rx_ready;
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -135,9 +107,7 @@ module pl_mmio #(
             rx_ready <= 1'b0;
     end
 
-    // -------------------------------------------------------------------------
     // Mux de leitura (combinatorial)
-    // -------------------------------------------------------------------------
     always_comb begin
         case (addr)
             3'b000:  ReadData = {14'b0, SW};
@@ -148,9 +118,7 @@ module pl_mmio #(
         endcase
     end
 
-    // -------------------------------------------------------------------------
     // Registradores de LED (escrita sincrona)
-    // -------------------------------------------------------------------------
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             LEDR <= 18'b0;
