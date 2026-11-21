@@ -352,7 +352,6 @@ def sbin(value):
 
 	if (binary[0] == '-'):
 		twos = negative_to_twos_complement(binary[3:])
-		# potencias de 2 negativas (ex.: -2048) ja comecam com o bit de sinal
 		return twos if twos[0] == '1' else '1' + twos
 
 	else:
@@ -672,11 +671,8 @@ def main_dump(src):
 			exit(2)
 		user_encoded.append((f"{int(binary, 2):08X}", instr))
 
-	# Um "beq x0,x0,0" no fim e o halt usado em simulacao; aqui ele prenderia o
-	# programa antes do dump. O desvio para o dump ocupa o lugar dele.
 	if user_encoded and user_encoded[-1][0] == "00000063":
 		user_encoded.pop()
-		print("Aviso: o 'beq x0,x0,0' final foi trocado pelo desvio para o dump.\n")
 
 	n_user = len(user_encoded)
 	if n_user >= DUMP_START:
