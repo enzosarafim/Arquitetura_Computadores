@@ -1,14 +1,9 @@
-// =============================================================================
-// pl_imem.sv
 // Memoria de instrucoes -- RV32I pipelined
-//
 // Capacidade : 256 palavras x 32 bits = 1 KB
 // Init file  : instruction.mif  (sintese Quartus)
 //              program.hex      (simulacao ModelSim via $readmemh)
-//
 // Leitura assincrona (combinatorial): instr = rom[addr]
 // Endereco de palavra = PC[9:2]  (8 bits, seleciona 1 de 256 posicoes)
-// =============================================================================
 
 `timescale 1ns / 1ps
 
