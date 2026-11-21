@@ -1,18 +1,13 @@
-// =============================================================================
-// pl_top_no_pll.sv
 // Top-level alternativo — RV32I pipelined sem PLL (DE2-115)
-//
 // Variante de síntese/teste onde CLOCK_50 (50 MHz) alimenta a CPU diretamente,
 // sem o bloco pll_10mhz. Use este arquivo para:
 //   - Testes de síntese independentes do IP de PLL
 //   - Análise de timing com o SDC pl_top_no_pll.sdc
-//
 // Diferenças em relação a pl_top.sv:
 //   - Sem instância pll_10mhz
 //   - clk = CLOCK_50 (50 MHz)
 //   - rst_n = KEY[0] diretamente (sem aguardar pll_locked)
 //   - CLK_HZ = 50_000_000 propagado para pl_mmio via pl_cpu
-//
 // Pinagem (DE2-115) — idêntica a pl_top.sv:
 //   CLOCK_50  : clock de 50 MHz da placa
 //   KEY[0]    : reset manual ativo-baixo (pressionado = reset)
@@ -22,7 +17,6 @@
 //   LEDG[8:0] : LEDs verdes        — MMIO 0x40C
 //   UART_TXD  : transmissão RS-232 (9600 8N1)
 //   UART_RXD  : recepção  RS-232
-// =============================================================================
 
 `timescale 1ns / 1ps
 
@@ -41,9 +35,7 @@ module pl_top_no_pll (
     logic rst_n;
     assign rst_n = KEY[0];
 
-    // -------------------------------------------------------------------------
     // CPU pipelined — clock direto de 50 MHz
-    // -------------------------------------------------------------------------
     pl_cpu #(
         .CLK_HZ       (50_000_000)
     ) cpu (
