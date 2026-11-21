@@ -1,29 +1,4 @@
-// =============================================================================
-// pl_uart.sv
 // Simple RS-232 UART -- 8N1 (8 data bits, no parity, 1 stop bit)
-//
-// Parameters:
-//   CLK_HZ : CPU clock frequency in Hz (default 50 MHz)
-//   BAUD   : desired baud rate         (default 9600)
-//
-// TX interface:
-//   tx_write  -- 1-cycle strobe: load tx_data and begin transmission.
-//               Writes asserted while tx_busy is high are ignored.
-//   tx_data   -- byte to transmit (7:0)
-//   tx_busy   -- high while the shift register is active
-//   TXD       -- RS-232 transmit pin (idle HIGH)
-//
-// RX interface:
-//   rx_data   -- last received byte (held until next reception)
-//   rx_valid  -- pulses HIGH for exactly one clock cycle when rx_data
-//               is updated (start-bit validated, 8 data bits sampled,
-//               stop bit confirmed HIGH)
-//   RXD       -- RS-232 receive pin (idle HIGH), double-flopped internally
-//
-// Baud-rate error at 9600 baud / 50 MHz:
-//   CLKS_PER_BIT = 50_000_000 / 9_600 = 5208
-//   Actual baud  = 50_000_000 / 5208  = 9601  (error < 0.1 % -- well within RS-232 spec)
-// =============================================================================
 
 `timescale 1ns / 1ps
 
@@ -46,14 +21,10 @@ module pl_uart #(
     input  logic       RXD        // from RS-232 connector (via MAX232)
 );
 
-    // -------------------------------------------------------------------------
     // Derived parameter: clock ticks per bit period
-    // -------------------------------------------------------------------------
     localparam int CLKS_PER_BIT = CLK_HZ / BAUD;   // 1041 @ 9600 / 10 MHz
 
-    // =========================================================================
     // Transmitter
-    // =========================================================================
     typedef enum logic [1:0] {
         TX_IDLE  = 2'd0,
         TX_START = 2'd1,
@@ -77,7 +48,7 @@ module pl_uart #(
         end else begin
             case (tx_state)
 
-                // ---- IDLE: wait for write strobe ----------------------------
+                // IDLE: wait for write strobe
                 TX_IDLE: begin
                     TXD     <= 1'b1;
                     tx_busy <= 1'b0;
@@ -89,7 +60,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- START bit (LOW) ----------------------------------------
+                // START bit (LOW)
                 TX_START: begin
                     TXD <= 1'b0;
                     if (tx_cnt == CLKS_PER_BIT - 1) begin
@@ -101,7 +72,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- 8 DATA bits (LSB first) --------------------------------
+                // 8 DATA bits (LSB first)
                 TX_DATA: begin
                     TXD <= tx_sr[0];
                     if (tx_cnt == CLKS_PER_BIT - 1) begin
@@ -118,7 +89,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- STOP bit (HIGH) ----------------------------------------
+                // STOP bit (HIGH)
                 TX_STOP: begin
                     TXD <= 1'b1;
                     if (tx_cnt == CLKS_PER_BIT - 1) begin
@@ -134,11 +105,10 @@ module pl_uart #(
         end
     end
 
-    // =========================================================================
+    
     // Receiver
-    // =========================================================================
 
-    // --- Two-stage synchronizer: bring RXD into the clk domain --------------
+    // Two-stage synchronizer: bring RXD into the clk domain
     logic rxd_s, rxd_q;    // rxd_q is the stable, synchronized value
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -151,7 +121,7 @@ module pl_uart #(
         end
     end
 
-    // --- Receiver state machine ----------------------------------------------
+    // Receiver state machine
     typedef enum logic [1:0] {
         RX_IDLE  = 2'd0,
         RX_START = 2'd1,
@@ -177,7 +147,7 @@ module pl_uart #(
 
             case (rx_state)
 
-                // ---- IDLE: detect falling edge of start bit -----------------
+                // IDLE: detect falling edge of start bit
                 RX_IDLE: begin
                     if (!rxd_q) begin               // line went LOW -> start bit
                         rx_cnt   <= '0;
@@ -185,7 +155,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- START: sample at mid-bit to confirm >= 0 ---------------
+                // START: sample at mid-bit to confirm >= 0
                 RX_START: begin
                     if (rx_cnt == CLKS_PER_BIT / 2 - 1) begin
                         if (!rxd_q) begin           // still LOW: valid start bit
@@ -200,7 +170,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- DATA: sample 8 bits at full-period intervals -----------
+                // DATA: sample 8 bits at full-period intervals
                 RX_DATA: begin
                     if (rx_cnt == CLKS_PER_BIT - 1) begin
                         rx_cnt <= '0;
@@ -216,7 +186,7 @@ module pl_uart #(
                     end
                 end
 
-                // ---- STOP: confirm HIGH, then latch byte --------------------
+                // STOP: confirm HIGH, then latch byte
                 RX_STOP: begin
                     if (rx_cnt == CLKS_PER_BIT - 1) begin
                         rx_cnt   <= '0;
