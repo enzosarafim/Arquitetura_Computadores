@@ -1,11 +1,7 @@
-// =============================================================================
-// pl_top.sv
 // Top-level -- RV32I pipelined (DE2-115)
-//
 // Instancia a PLL (50 MHz -> 10 MHz) e o processador (pl_cpu).
 // O reset do CPU e mantido enquanto a PLL nao estiver travada, garantindo
 // que o pipeline so inicie com clock estavel.
-//
 // Pinagem (DE2-115):
 //   CLOCK_50  : clock de 50 MHz da placa
 //   KEY[0]    : reset manual ativo-baixo (pressionado = reset)
@@ -15,7 +11,6 @@
 //   LEDG[8:0] : LEDs verdes   (escrita via MMIO 0x40C)
 //   UART_TXD  : transmissao RS-232 (9600 8N1)
 //   UART_RXD  : recepcao  RS-232
-// =============================================================================
 
 `timescale 1ns / 1ps
 
@@ -33,9 +28,7 @@ module pl_top (
     logic pll_locked;   // 1 quando a PLL esta estabilizada
     logic rst_n;        // reset ativo-baixo sincronizado com PLL
 
-    // -------------------------------------------------------------------------
     // PLL: 50 MHz -> 10 MHz
-    // -------------------------------------------------------------------------
     pll_10mhz pll (
         .inclk0 (CLOCK_50),
         .c0     (clk),
@@ -45,10 +38,7 @@ module pl_top (
     // O CPU so sai do reset quando a PLL esta travada e KEY[0] nao e pressionado
     assign rst_n = pll_locked & KEY[0];
 
-
-    // -------------------------------------------------------------------------
     // CPU pipelined
-    // -------------------------------------------------------------------------
     pl_cpu #(
         .CLK_HZ       (10_000_000)
     ) cpu (
