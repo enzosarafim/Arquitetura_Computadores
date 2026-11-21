@@ -1,15 +1,10 @@
-// =============================================================================
-// pl_hazard.sv
 // Unidade de Deteccao de Hazard -- RV32I pipelined
-//
 // Detecta hazard load-use: load (LB/LH/LW/LBU/LHU) seguido imediatamente por
 // instrucao que le o registrador destino do load.
-//
 // Acao ao detectar stall:
 //   - PC mantido (nao avanca)
 //   - IF/ID mantido (instrucao dependente fica em ID mais um ciclo)
 //   - ID/EX zerado (NOP/bolha injetada no pipeline)
-// =============================================================================
 
 `timescale 1ns / 1ps
 
