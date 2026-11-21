@@ -5,7 +5,6 @@
 // Codificacao de operacao (Operation[3:0]):
 //   4'd01 : ADD  -- adicao com sinal
 //   4'd02 : SUB  -- subtracao com sinal
-//   (Zero continua disponivel, mas os desvios usam o comparador do pl_datapath)
 //   4'd03 : XOR  -- OU exclusivo bit a bit
 //   4'd04 : OR   -- OU bit a bit
 //   4'd05 : AND  -- E bit a bit
