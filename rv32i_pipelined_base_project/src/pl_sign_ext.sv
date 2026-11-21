@@ -1,7 +1,4 @@
-// =============================================================================
-// pl_sign_ext.sv
 // Extensao de Sinal de Imediatos -- RV32I pipelined (P&H secao 4.4)
-//
 // Formatos suportados:
 //   I-type (loads, aritmetica, jalr) : imm[11:0] = inst[31:20]
 //                             (em SLLI/SRLI/SRAI, a ALU usa so imm[4:0] = shamt)
@@ -11,7 +8,6 @@
 //   U-type (lui, auipc) : imm[31:12] = inst[31:12], imm[11:0] = 0
 //   J-type (jal)      : imm[20]=inst[31], imm[19:12]=inst[19:12], imm[11]=inst[20],
 //                       imm[10:1]=inst[30:21], imm[0]=0
-// =============================================================================
 
 `timescale 1ns / 1ps
 
