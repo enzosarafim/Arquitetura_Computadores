@@ -1,14 +1,5 @@
 # Arquitetura de Computadores
 ## Atividades da cadeira de Arquitetura de Computadores
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/b6bb4a0a-40fb-47de-bc6e-b58c45640c70" />
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/135839e8-fd25-4e10-b3a3-ce332c787ffc" />
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/ee14930d-2b7d-4849-bb1d-84a0d4bb375b" />
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/24bd9c76-54bd-4e71-a402-c9709593095c" />
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/d27632ec-0541-4f32-abc7-3567100d7394" />
-<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/85bd33bc-f03d-4a2f-af8c-87a6c5b64ee6" />
-<img width="236" height="290" alt="Gohan sem entender" src="https://github.com/user-attachments/assets/39e45eb3-c125-4afa-add9-24d4e1420d0a" />
-<img width="236" height="290" alt="Goku" src="https://github.com/user-attachments/assets/1beac881-d11f-408b-aa3e-4fcc88aaa861" />
-<img width="236" height="290" alt="piccolo aura farm" src="https://github.com/user-attachments/assets/c77eabe3-b041-4d14-ae46-5a310528c707" />
 
 
 ## Grupo:
@@ -446,3 +437,13 @@ O arquivo termina com `beq x0,x0,0`. No modo `--dump`, o assembler troca essa li
 - [RISC-V ISA Reference (msyksphinz)](https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html)
 - [RISC-V Interpreter — Cornell University](https://www.cs.cornell.edu/courses/cs3410/2019sp/riscv/interpreter/)
 - Patterson & Hennessy, *Computer Organization and Design: RISC-V Edition*, seções 4.6 – 4.10
+
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/b6bb4a0a-40fb-47de-bc6e-b58c45640c70" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/135839e8-fd25-4e10-b3a3-ce332c787ffc" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/ee14930d-2b7d-4849-bb1d-84a0d4bb375b" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/24bd9c76-54bd-4e71-a402-c9709593095c" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/d27632ec-0541-4f32-abc7-3567100d7394" />
+<img width="236" height="290" alt="image" src="https://github.com/user-attachments/assets/85bd33bc-f03d-4a2f-af8c-87a6c5b64ee6" />
+<img width="236" height="290" alt="Gohan sem entender" src="https://github.com/user-attachments/assets/39e45eb3-c125-4afa-add9-24d4e1420d0a" />
+<img width="236" height="290" alt="Goku" src="https://github.com/user-attachments/assets/1beac881-d11f-408b-aa3e-4fcc88aaa861" />
+<img width="236" height="290" alt="piccolo aura farm" src="https://github.com/user-attachments/assets/c77eabe3-b041-4d14-ae46-5a310528c707" />
