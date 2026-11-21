@@ -1,23 +1,14 @@
-// =============================================================================
-// pl_pipe_pkg.sv
 // Definicoes dos registradores de pipeline -- processador RV32I pipelined
-//
-// Quatro registradores de pipeline (P&H secao 4.6):
-//   IF/ID  : resultado da busca de instrucao
-//   ID/EX  : resultado da decodificacao + leitura do banco de registradores
-//   EX/MEM : resultado da execucao (ALU)
-//   MEM/WB : resultado do acesso a memoria
-// =============================================================================
 
 package pl_pipe_pkg;
 
-    // ---- IF/ID --------------------------------------------------------------
+    // IF/ID 
     typedef struct packed {
         logic [31:0] pc;
         logic [31:0] instr;
     } if_id_t;
 
-    // ---- ID/EX --------------------------------------------------------------
+    // ID/EX
     typedef struct packed {
         // sinais de controle propagados para os estagios seguintes
         logic        alu_src;
@@ -42,7 +33,7 @@ package pl_pipe_pkg;
         logic [6:0]  funct7;
     } id_ex_t;
 
-    // ---- EX/MEM -------------------------------------------------------------
+    // EX/MEM
     typedef struct packed {
         // sinais de controle
         logic        mem_to_reg;
@@ -56,7 +47,7 @@ package pl_pipe_pkg;
         logic [2:0]  funct3;      // largura e sinal de loads/stores
     } ex_mem_t;
 
-    // ---- MEM/WB -------------------------------------------------------------
+    // MEM/WB 
     typedef struct packed {
         // sinais de controle
         logic        mem_to_reg;
